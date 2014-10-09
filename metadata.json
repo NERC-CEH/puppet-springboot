@@ -3,8 +3,8 @@
   "summary": "Manage a Spring Boot application fronted by Apache",
   "author": "Rod Scott",
   "license": "GPL-3.0",
-  "project_page": "",
-  "source": "",
+  "project_page": "https://github.com/NERC-CEH/puppet-springboot",
+  "source": "git@github.com:NERC-CEH/puppet-springboot.git",
   "version": "0.1.0",
   "operatingsystem_support": [
   	{
