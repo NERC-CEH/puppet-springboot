@@ -1,0 +1,18 @@
+# /etc/init/cig-delivery.conf
+# This Upstart configuration file is managed by the springboot puppet module.
+# Editing is futile !
+description "<%= @artifact %>"
+author "CEH Apps Dev"
+
+setuid spring
+
+start on (local-filesystems and net-device-up IFACE!=lo)
+stop on runlevel [016]
+
+chdir /opt
+
+<% [@env].flatten.compact.each do |env| -%>
+env <%= env['key'] %>=<%= env['value'] %>  
+<% end -%>
+
+exec java -server -jar <%= @artifact %>.jar
