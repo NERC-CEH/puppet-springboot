@@ -11,8 +11,6 @@ stop on runlevel [016]
 
 chdir /opt
 
-env ajp.port=<%= ajp_port %>
-
 <% [@env].flatten.compact.each do |env| -%>
 env <%= env['key'] %>=<%= env['value'] %>  
 <% end -%>
