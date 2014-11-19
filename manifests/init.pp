@@ -27,19 +27,20 @@ class springboot (
   $env
 ) {
   include ::nexus
-  
+
   realize(User[spring], Group[spring])
-  
+
   nexus::artifact { 'application' :
     group     => $group,
     artifact  => $artifact,
     version   => $version,
     repo      => $repository,
     extension => 'jar',
-    location  => "/opt/${artifact}.jar"
+    location  => "/opt/${artifact}.jar",
+    before    =>  File["/etc/init/${artifact}.conf"],
   }
-  
-  
+
+
   file { "/etc/init/${artifact}.conf" :
     ensure  => file,
     content => template('springboot/upstart.conf.erb'),
