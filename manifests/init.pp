@@ -37,17 +37,11 @@ class springboot (
     repo      => $repository,
     extension => 'jar',
     location  => "/opt/${artifact}.jar",
-    before    =>  File["/etc/init/${artifact}.conf"],
+    before    =>  Service[$artifact],
   }
 
-
-  file { "/etc/init/${artifact}.conf" :
-    ensure  => file,
-    content => template('springboot/upstart.conf.erb'),
-  }
-
-  service { $artifact :
-    ensure  => running,
-    require => File["/etc/init/${artifact}.conf"],
+  class { 'springboot::service':
+    artifact => $artifact,
+    env      => $env,
   }
 }

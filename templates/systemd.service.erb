@@ -1,0 +1,18 @@
+# /etc/systemd/system/delivery-server.service
+# Systemd service file managed by the springboot puppet module.
+[Unit]
+Description="<%= @artifact %>"
+
+[Service]
+User=spring
+WorkingDirectory=/opt
+ExecStart=/usr/bin/java -server -jar <%= @artifact %>.jar
+KillMode=process
+Restart=on-failure
+RestartSec=5
+<% [@env].flatten.compact.each do |env| -%>
+Environment="<%= env['key'] %>=<%= env['value'] %>"
+<% end -%>
+
+[Install]
+WantedBy=multi-user.target
